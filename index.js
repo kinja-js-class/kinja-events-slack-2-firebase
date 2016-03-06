@@ -1,29 +1,31 @@
-var express = require('express');
-var qs = require('qs');
+'use strict'
 
-var StringDecoder = require('string_decoder').StringDecoder;
-var decoder = new StringDecoder('utf8');
+const express = require('express')
+const qs = require('qs')
 
-var Firebase = require("firebase");
-var dataStore = new Firebase("https://kinja-events.firebaseio.com/slack");
+const StringDecoder = require('string_decoder').StringDecoder
+const decoder = new StringDecoder('utf8')
 
-var app = express();
-app.set('port', (process.env.PORT || 5000));
+const Firebase = require("firebase")
+const dataStore = new Firebase("https://kinja-events.firebaseio.com/slack")
 
-app.post('/receive', function (request, respond) {
-	var body = '';
-	request.on('data', function (data) {
-		body += data;
-	});
+const app = express()
+app.set('port', (process.env.PORT || 5000))
 
-	request.on('end', function () {
-		var data = decoder.write(body);
-		dataStore.set(qs.parse(data));
-	});
+app.post('/receive', (request, respond) => {
+	let body = ''
+	request.on('data', (data) => body += data)
 
-	respond.send({"text": "Thank you!"});
-});
+	request.on('end', () => {
+		const data = decoder.write(body)
+		console.info('Data received', data)
+		dataStore.push(qs.parse(data))
+		console.info('Pushed to store')
+	})
 
-app.listen(app.get('port'), function() {
-  console.log('Node app is running on port', app.get('port'));
-});
+	respond.send({'text': 'Thank you!'})
+})
+
+app.listen(app.get('port'), () => {
+  console.log('Node app is running on port', app.get('port'))
+})
