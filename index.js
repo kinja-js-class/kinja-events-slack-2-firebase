@@ -8,10 +8,10 @@ var Firebase = require("firebase");
 var dataStore = new Firebase("https://kinja-events.firebaseio.com/slack");
 
 var app = express();
+app.set('port', (process.env.PORT || 5000));
 
 app.post('/receive', function (request, respond) {
 	var body = '';
-	filePath = __dirname + '/public/data.txt';
 	request.on('data', function (data) {
 		body += data;
 	});
@@ -24,4 +24,6 @@ app.post('/receive', function (request, respond) {
 	respond.send({"text": "Thank you!"});
 });
 
-app.listen(8080);
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
+});
