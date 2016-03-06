@@ -1,28 +1,23 @@
 'use strict'
 
 const express = require('express')
+const bodyParser = require('body-parser')
 const qs = require('qs')
-
-const StringDecoder = require('string_decoder').StringDecoder
-const decoder = new StringDecoder('utf8')
 
 const Firebase = require("firebase")
 const dataStore = new Firebase("https://kinja-events.firebaseio.com/slack")
 
 const app = express()
 app.set('port', (process.env.PORT || 5000))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({
+  extended: true
+}))
 
 app.post('/receive', (request, respond) => {
-	let body = ''
-	request.on('data', (data) => body += data)
-
-	request.on('end', () => {
-		const data = decoder.write(body)
-		console.info('Data received', data)
-		dataStore.push(qs.parse(data))
-		console.info('Pushed to store')
-	})
-
+	console.info(`Message received from ${request.body.user_name}`)
+	dataStore.push(request.body)
+	console.info('Pushed to store')
 	respond.send({'text': ''})
 })
 
