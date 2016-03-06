@@ -23,7 +23,7 @@ app.post('/receive', (request, respond) => {
 		console.info('Pushed to store')
 	})
 
-	respond.send({'text': 'Thank you!'})
+	respond.send({'text': ''})
 })
 
 app.listen(app.get('port'), () => {
