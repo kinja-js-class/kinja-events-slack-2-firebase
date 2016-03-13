@@ -7,7 +7,8 @@
     "postinstall": "npm run build",
     "start": "PORT=5000 nodemon lib/index.js --exec babel-node",
     "build": "babel lib -d dist",
-    "serve": "node dist/index.js"
+    "serve": "node dist/index.js",
+    "test": "mocha --compilers js:babel-register"
   },
   "author": "",
   "license": "ISC",
@@ -28,5 +29,9 @@
       "es2015",
       "stage-2"
     ]
+  },
+  "devDependencies": {
+    "babel-register": "^6.7.2",
+    "mocha": "^2.4.5"
   }
 }
