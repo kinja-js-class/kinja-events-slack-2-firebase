@@ -1,4 +1,4 @@
-const performanceTestData = [
+module.exports = [
 	{
 		"completed": true,
 		"severity": "info",
@@ -800,5 +800,3 @@ const performanceTestData = [
 		"timestamp": "1441570227"
 	}
 ]
-
-export default performanceTestData

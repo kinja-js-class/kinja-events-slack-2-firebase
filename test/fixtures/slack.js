@@ -1,4 +1,4 @@
-const response = {
+module.exports = {
 	channel_id: "C0QLZ9P6J",
 	channel_name: "changelog",
 	service_id: "24711345488",
@@ -10,5 +10,3 @@ const response = {
 	user_id: "U0EJP5KV4",
 	user_name: "oliver"
 }
-
-export { response }
