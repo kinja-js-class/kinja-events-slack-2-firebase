@@ -1,9 +1,15 @@
-# kinja-events-slack-2-firebase
-Receives a message from slack from activity in a channel, and saves it so firebase.
+# kinja-events Middleware
+Receives a data from a 3rd party service, transforms the data to a the kinja-events format, and pushes it to firebase.
 
 ## Usage
 
-`npm start` will start the server on port `5000`. Use the `/receive` endpoint to send POST requests.
+`npm start` will start the server on port `5000`.
+
+### API
+
+- `POST` - `/api/event`
+- `GET`  - `/api/sync`
+- `GET`  - `/test/insert-mock-data`
 
 ## Deploy to Heroku
 
